@@ -461,8 +461,7 @@ describe("readSessionPreviewItemsFromTranscript", () => {
       JSON.stringify({ type: "session", version: 1, id: sessionId }),
       JSON.stringify({ message: { role: "assistant", content: [{ type: "tool_use", name: "read", input: { path: "src/app.ts" } }] } }),
     ];
-    fs.writeFileSync(transcriptPath, lines.join("
-"), "utf-8");
+    fs.writeFileSync(transcriptPath, lines.join("\n"), "utf-8");
 
     const result = readSessionPreviewItemsFromTranscript(
       sessionId,
@@ -475,7 +474,8 @@ describe("readSessionPreviewItemsFromTranscript", () => {
 
     expect(result[0]?.text).toContain("read: src/app.ts");
   });
-test("detects tool calls from tool_use/tool_call blocks and toolName field", () => {
+
+  test("detects tool calls from tool_use/tool_call blocks and toolName field", () => {
     const sessionId = "preview-session-tools";
     const transcriptPath = path.join(tmpDir, `${sessionId}.jsonl`);
     const lines = [
